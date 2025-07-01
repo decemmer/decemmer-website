@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Memories - De'Cemmer 💌</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #fff0f5;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      background-color: #ffb6c1;
+      color: white;
+      border-bottom: 5px solid #ffa6c9;
+      animation: slideInDown 1s ease-out;
+      position: relative;
+    }
+
+    .cover-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      display: block;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: zoomIn 1s ease-out;
+      position: relative;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #ffddee;
+      border-radius: 10px;
+      font-size: 16px;
+      background-color: #fff9fc;
+      box-sizing: border-box;
+      transition: border-color 0.3s, transform 0.3s;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #ff69b4;
+      transform: scale(1.02);
+      outline: none;
+    }
+
+    button {
+      background: #ff69b4;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    button:hover {
+      background: #ff3c99;
+      transform: translateY(-3px);
+    }
+
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    button::after {
+      content: '✨';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    button:hover::after {
+      opacity: 1;
+    }
+
+    .audio-control {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .audio-control button {
+      background: #ffb6c1;
+      padding: 8px 16px;
+      font-size: 14px;
+      transition: transform 0.3s;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .audio-control button:hover {
+      transform: translateY(-3px);
+    }
+
+    .success-message {
+      color: #ff69b4;
+      font-weight: bold;
+      margin-top: 10px;
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #999;
+      animation: fadeIn 2s ease-in;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    /* Sticker styles */
+    .sticker {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      z-index: 10;
+    }
+
+    .sticker-heart {
+      top: 10px;
+      left: 10px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    .sticker-star {
+      bottom: 10px;
+      right: 10px;
+      animation: rotate 4s infinite linear;
+    }
+
+    /* Keyframes for animations */
+    @keyframes slideInDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+      .header {
+        padding: 15px;
+      }
+      .cover-image {
+        max-height: 250px;
+      }
+      input, textarea, button {
+        font-size: 14px;
+      }
+      .sticker {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="https://cdn.pixabay.com/photo/2022/02/26/08/22/heart-7034965_1280.png" alt="Heart sticker" class="sticker sticker-heart">
+    <h1>💌 Send Love & Get Memories from De'Cemmer 💌</h1>
+    <p>Leave a sweet message and your Gmail to receive yearbook photos ~</p>
+  </div>
+
+  <!-- Cover Image -->
+  <picture>
+    <source srcset="cover.webp" type="image/webp">
+    <img src="cover.jpg" alt="Yearbook cover photo" class="cover-image" onerror="this.src='https://via.placeholder.com/600x400?text=De\'Cemmer+Cover+Photo'">
+  </picture>
+
+  <div class="container">
+    <img src="https://cdn.pixabay.com/photo/2022/10/25/18/56/star-7546150_1280.png" alt="Star sticker" class="sticker sticker-star">
+    <form id="message-form" action="https://formspree.io/f/xzzgojqk" method="POST">
+      <input type="text" name="name" placeholder="What's your name?" aria-label="Your name" required>
+      <input type="email" name="email" placeholder="Your Gmail to receive photos 💌" aria-label="Your Gmail address" required>
+      <textarea name="message" placeholder="A message (if any) for De'Cemmer..." rows="4" aria-label="Your message"></textarea>
+      <button type="submit" id="submit-btn">Send to De'Cemmer ✨</button>
+      <p class="success-message" id="success-message">Sent successfully! Thank you for your message 💖</p>
+    </form>
+  </div>
+
+  <div class="audio-control">
+    <button onclick="toggleAudio()">Play Background Music 🎶</button>
+  </div>
+
+  <footer>
+    © 2025 De'Cemmer - Wish you all the best 💖
+  </footer>
+
+  <!-- Background Music -->
+  <audio id="background-music" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/10/31/09-23-38-126_1.mp3" type="audio/mpeg">
+    Your browser does not support background music.
+  </audio>
+
+  <script>
+    // Background music control
+    function toggleAudio() {
+      const audio = document.getElementById('background-music');
+      const audioButton = event.target;
+      if (audio.paused) {
+        audio.play().catch(e => {
+          console.log('Error playing music:', e);
+          alert('Unable to play music, please check your browser!');
+        });
+        audioButton.textContent = 'Pause Background Music 🎶';
+      } else {
+        audio.pause();
+        audioButton.textContent = 'Play Background Music 🎶';
+      }
+    }
+
+    // Form submission handling
+    const formId = document.getElementById('message-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const successMessage = document.getElementById('success-message');
+
+    formId.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        const response = await fetch(formId.action, {
+          method: formId.method,
+          body: new FormData(formId),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          successMessage.style.display = 'block';
+          formId.reset();
+          setTimeout(() => {
+            successMessage.style.display = 'none';
+          }, 3000);
+        } else {
+          alert('An error occurred, please try again!');
+        }
+      } catch (error) {
+        alert('Connection error, please check your network!');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send to De\'Cemmer ✨';
+      }
+    });
+  </script>
+</body>
+</html>
